@@ -8,117 +8,159 @@
   <style>
     :root {
       --paper: #f4efe6;
+      --card: #fffdf8;
       --ink: #1f1c18;
       --soft: #6b645a;
-      --line: #cfc6b6;
+      --line: #d8cfbe;
       --accent: #b3361f;
+      --accent-soft: #f6dfd8;
+      --shadow: 4px 4px 0 var(--ink);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      background: var(--paper);
+      background:
+        radial-gradient(circle at 1px 1px, rgba(31, 28, 24, .07) 1px, transparent 0) 0 0 / 22px 22px,
+        var(--paper);
       color: var(--ink);
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", sans-serif;
       font-size: 16px;
       line-height: 1.6;
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
-      padding: 48px 20px 70px;
+      padding: 44px 20px 80px;
     }
 
-    /* ---------- header ---------- */
-    header {
-      padding-bottom: 22px;
-      margin-bottom: 34px;
+    /* ================= HEADER ================= */
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 26px;
+      margin-bottom: 38px;
       border-bottom: 3px double var(--ink);
     }
 
-    header h1 {
+    .top h1 {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 2.6rem;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.5px;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -1px;
     }
 
-    header h1::after {
-      content: "";
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin-left: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-    }
+    .top h1 span { color: var(--accent); }
 
-    header p {
-      margin-top: 10px;
+    .top p {
+      margin-top: 12px;
+      max-width: 40ch;
       font-size: .9rem;
       color: var(--soft);
-      max-width: 52ch;
     }
 
-    /* ---------- blocks ---------- */
-    form, section {
-      padding-bottom: 30px;
-      margin-bottom: 30px;
-      border-bottom: 1px solid var(--line);
+    .top p b { color: var(--ink); }
+
+    .top img {
+      width: 130px;
+      height: auto;
+      flex-shrink: 0;
+      transform: rotate(3deg);
     }
 
-    .ask { border-bottom: 0; margin-bottom: 0; }
+    /* ================= CARDS ================= */
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      padding: 28px 24px 24px;
+      margin-bottom: 38px;
+    }
 
-    h2 {
+    .tag {
+      position: absolute;
+      top: -14px;
+      left: 18px;
+      padding: 2px 12px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--accent);
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+    }
+
+    .card h2 {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 4px;
     }
 
-    .card-sub {
+    .sub {
+      margin-bottom: 18px;
+      font-size: .93rem;
       color: var(--soft);
-      font-size: .92rem;
-      margin-bottom: 16px;
     }
 
     label {
       display: block;
-      font-weight: 600;
-      font-size: .95rem;
       margin-bottom: 8px;
+      font-size: .92rem;
+      font-weight: 700;
     }
 
-    br { display: none; }
-
-    /* ---------- image upload ---------- */
+    /* ================= IMAGE UPLOAD ================= */
     .drop {
-      padding: 18px;
-      border: 1.5px dashed var(--soft);
-      background: #faf6ee;
+      padding: 22px 18px;
+      text-align: center;
+      background: var(--paper);
+      border: 2px dashed var(--soft);
+      border-radius: 6px;
+      transition: border-color .2s, background .2s;
+    }
+
+    .drop:hover,
+    .drop:focus-within {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .drop svg {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 8px;
+      stroke: var(--ink);
     }
 
     .drop small {
       display: block;
-      margin-bottom: 12px;
-      color: var(--soft);
+      margin-bottom: 14px;
       font-size: .85rem;
+      color: var(--soft);
     }
 
     input[type="file"] {
       max-width: 100%;
       font: inherit;
-      font-size: .9rem;
+      font-size: .88rem;
       color: var(--soft);
     }
 
     input[type="file"]::file-selector-button {
       margin-right: 12px;
-      padding: 8px 14px;
+      padding: 8px 16px;
       font: inherit;
       font-size: .9rem;
+      font-weight: 600;
       color: var(--ink);
       background: #fff;
-      border: 1.5px solid var(--ink);
-      border-radius: 3px;
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+      box-shadow: 2px 2px 0 var(--ink);
       cursor: pointer;
     }
 
@@ -127,184 +169,168 @@
       color: var(--paper);
     }
 
-    /* ---------- answer ---------- */
-    .answer {
-      padding: 14px 16px;
-      border-left: 4px solid var(--accent);
-      background: #faf6ee;
-      color: var(--soft);
-      font-size: .95rem;
-    }
-
-    /* ---------- suggestions ---------- */
-    .suggest > p {
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .suggest form {
+    /* ================= SUGGESTIONS ================= */
+    .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      padding: 0;
-      margin: 0;
-      border: 0;
+      gap: 10px;
     }
 
-    .suggest form button {
-      padding: 7px 13px;
+    .chips button {
+      padding: 8px 16px;
       font: inherit;
-      font-size: .9rem;
+      font-size: .92rem;
       color: var(--ink);
-      background: transparent;
-      border: 1px solid var(--soft);
+      background: #fff;
+      border: 1.5px solid var(--ink);
       border-radius: 999px;
       cursor: pointer;
+      transition: transform .12s, background .12s, color .12s;
     }
 
-    .suggest form button:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    .chips button:hover {
+      background: var(--ink);
+      color: var(--paper);
+      transform: translateY(-2px);
     }
 
-    /* ---------- text input ---------- */
+    /* ================= TEXT INPUT ================= */
     textarea {
       display: block;
       width: 100%;
-      min-height: 110px;
-      padding: 12px 14px;
+      min-height: 120px;
+      padding: 14px 16px;
       font: inherit;
       color: var(--ink);
-      background: #fffdf8;
-      border: 1.5px solid var(--ink);
-      border-radius: 3px;
+      background: #fff;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
       resize: vertical;
     }
 
-    textarea::placeholder { color: #9a9183; }
+    textarea::placeholder { color: #a39a8b; }
 
     textarea:focus {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    /* ---------- main buttons ---------- */
-    form > button {
-      margin-top: 14px;
-      margin-right: 8px;
-      padding: 10px 20px;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      border-radius: 3px;
-    }
-
-    form > button[type="submit"] {
-      color: #fff;
-      background: var(--ink);
-      border: 1.5px solid var(--ink);
-    }
-
-    form > button[type="submit"]:hover {
-      background: var(--accent);
+      outline: 3px solid var(--accent-soft);
       border-color: var(--accent);
     }
 
-    form > button[type="reset"] {
-      color: var(--soft);
-      background: transparent;
-      border: 1.5px solid var(--line);
+    /* ================= BUTTONS ================= */
+    .row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 18px;
     }
 
-    form > button[type="reset"]:hover {
-      color: var(--ink);
-      border-color: var(--ink);
+    .btn {
+      padding: 11px 24px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      transition: transform .1s, box-shadow .1s, background .15s;
     }
+
+    .btn.main {
+      color: #fff;
+      background: var(--accent);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    .btn.main:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--ink); }
+    .btn.main:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
+
+    .btn.ghost {
+      color: var(--soft);
+      background: transparent;
+      border-color: var(--line);
+    }
+
+    .btn.ghost:hover { color: var(--ink); border-color: var(--ink); }
 
     button:focus-visible,
     input[type="file"]:focus-visible {
-      outline: 2px solid var(--accent);
+      outline: 3px solid var(--accent);
       outline-offset: 2px;
     }
 
     ::selection { background: var(--accent); color: #fff; }
 
-    /* ---------- small screens ---------- */
-    @media (max-width: 520px) {
-      body { padding: 30px 16px 50px; }
-      header h1 { font-size: 2.1rem; }
-      form > button { width: 100%; margin-right: 0; }
+    /* ================= SMALL SCREENS ================= */
+    @media (max-width: 560px) {
+      body { padding: 28px 14px 60px; }
+      .top { flex-direction: column-reverse; align-items: flex-start; gap: 16px; }
+      .top img { width: 96px; transform: none; }
+      .card { padding: 26px 16px 20px; }
+      .row { flex-direction: column-reverse; }
+      .btn { width: 100%; }
+      .chips button { width: 100%; text-align: left; border-radius: 6px; }
     }
- 
-}
- 
- </style>
-
-
-
-
-
-
+  </style>
 </head>
 <body>
 
-  <header>
-    <h1>K HO? Assistant</h1>
-    <p>
-      This is a chatbot created by team (Symmetric Alliance) at Hacktober fest (8th of october)
-    </p>
-  <img src="symmetric alliance.png" alt="symmetric alliance logo " height="195px", width="200px;"> </img>
-
-
-</header>
+  <header class="top">
+    <div>
+      <h1>K HO<span>?</span> Assistant</h1>
+      <p>
+        This is a chatbot created by team <b>Symmetric Alliance</b> at Hacktober fest (8th of october)
+      </p>
+    </div>
+    <img src="symmetric%20alliance.png" alt="Symmetric Alliance logo">
+  </header>
 
   <!-- ========== IMAGE RECOGNITION ========== -->
-  <form class="upload" action="/api/recognize" method="post" enctype="multipart/form-data">
+  <form class="card" action="/api/recognize" method="post" enctype="multipart/form-data">
+    <span class="tag">Photo</span>
     <h2>Image identify garnus</h2>
-    <p class="card-sub">Photo upload garnus, AI le yo k ho bhanera batauchha.</p>
+    <p class="sub">Photo upload garnus, AI le yo k ho bhanera batauchha.</p>
 
     <label for="image">Photo choose garnus</label>
     <div class="drop">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 8h3l2-3h6l2 3h3v11H4z"/>
+        <circle cx="12" cy="13" r="3.5"/>
+      </svg>
       <small>Yo section ma image halnus, wa camera kholnus.</small>
       <input type="file" id="image" name="image" accept="image/*" capture="environment" required>
     </div>
 
-    <button type="submit">Identify garne</button>
-    <button type="reset">Clear</button>
+    <div class="row">
+      <button class="btn ghost" type="reset">Clear</button>
+      <button class="btn main" type="submit">Identify garne</button>
+    </div>
   </form>
- 
- 
 
   <!-- ========== SUGGESTIONS ========== -->
-  <section class="suggest">
-    <p>Suggested questions</p>
-    <form action="/api/chat" method="post">
-      <button type="submit" name="message" value="butwal ko biggest hackathon kun ho nii ai"> Butwal ko biggest hackathon kun ho ni ai ?</button>
-      <button type="submit" name="message" value="Mile k garnu parchha?">Maile k garnu parxaa?</button>
-      <button type="submit" name="message" value="Last date kahile ho?">aajako date k ho nii? </button>
+  <section class="card">
+    <span class="tag">Suggest</span>
+    <h2>Suggested questions</h2>
+    <p class="sub">Click garnus, ni sidhai sodhinchha.</p>
+    <form class="chips" action="/api/chat" method="post">
+      <button type="submit" name="message" value="Butwal ko biggest hackathon kun ho ni ai?">Butwal ko biggest hackathon kun ho ni ai?</button>
+      <button type="submit" name="message" value="Maile k garnu parxaa?">Maile k garnu parxaa?</button>
+      <button type="submit" name="message" value="Aajako date k ho nii?">Aajako date k ho nii?</button>
     </form>
   </section>
 
   <!-- ========== TEXT QUESTION ========== -->
-  <form class="ask" action="/api/chat" method="post">
+  <form class="card" action="/api/chat" method="post">
+    <span class="tag">Chat</span>
     <label for="message">Aafno prashna lekhnus</label>
-    <textarea id="message" name="message" rows="3" cols="50" required placeholder="Yaha lekhnus..."></textarea>
-    <button type="submit">Pathaunus</button>
-    <button type="reset">Clear</button>
+    <textarea id="message" name="message" rows="3" required placeholder="Yaha lekhnus..."></textarea>
+    <div class="row">
+      <button class="btn ghost" type="reset">Clear</button>
+      <button class="btn main" type="submit">Pathaunus</button>
+    </div>
   </form>
 
+  <!--
+    Gemini code yaha rakhnu bhanda backend ma rakhnus (API key browser ma dekhinchha).
+    Frontend bata chalauna parye: <script type="module"> ma halnus, tara key public hunchha.
+  -->
+
 </body>
-<script>
-import { GoogleGenAI } from "@google/genai";
-
-const ai = new GoogleGenAI();
-
-const response = await ai.models.generateContent({
-  model: "gemma-4-26b-a4b-it",
-  contents: "Roses are red...",
-});
-console.log(response.text);
-
-</script>
-
 </html>
