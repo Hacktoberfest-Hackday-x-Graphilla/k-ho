@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K HO? Chatbot</title>
+
+  <style>
+    :root {
+      --paper: #f4efe6;
+      --ink: #1f1c18;
+      --soft: #6b645a;
+      --line: #cfc6b6;
+      --accent: #b3361f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 48px 20px 70px;
+    }
+
+    /* ---------- header ---------- */
+    header {
+      padding-bottom: 22px;
+      margin-bottom: 34px;
+      border-bottom: 3px double var(--ink);
+    }
+
+    header h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    header h1::after {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin-left: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: .9rem;
+      color: var(--soft);
+      max-width: 52ch;
+    }
+
+    /* ---------- blocks ---------- */
+    form, section {
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ask { border-bottom: 0; margin-bottom: 0; }
+
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.3rem;
+      margin-bottom: 4px;
+    }
+
+    .card-sub {
+      color: var(--soft);
+      font-size: .92rem;
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: .95rem;
+      margin-bottom: 8px;
+    }
+
+    br { display: none; }
+
+    /* ---------- image upload ---------- */
+    .drop {
+      padding: 18px;
+      border: 1.5px dashed var(--soft);
+      background: #faf6ee;
+    }
+
+    .drop small {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--soft);
+      font-size: .85rem;
+    }
+
+    input[type="file"] {
+      max-width: 100%;
+      font: inherit;
+      font-size: .9rem;
+      color: var(--soft);
+    }
+
+    input[type="file"]::file-selector-button {
+      margin-right: 12px;
+      padding: 8px 14px;
+      font: inherit;
+      font-size: .9rem;
+      color: var(--ink);
+      background: #fff;
+      border: 1.5px solid var(--ink);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* ---------- answer ---------- */
+    .answer {
+      padding: 14px 16px;
+      border-left: 4px solid var(--accent);
+      background: #faf6ee;
+      color: var(--soft);
+      font-size: .95rem;
+    }
+
+    /* ---------- suggestions ---------- */
+    .suggest > p {
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .suggest form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    }
+
+    .suggest form button {
+      padding: 7px 13px;
+      font: inherit;
+      font-size: .9rem;
+      color: var(--ink);
+      background: transparent;
+      border: 1px solid var(--soft);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .suggest form button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ---------- text input ---------- */
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 110px;
+      padding: 12px 14px;
+      font: inherit;
+      color: var(--ink);
+      background: #fffdf8;
+      border: 1.5px solid var(--ink);
+      border-radius: 3px;
+      resize: vertical;
+    }
+
+    textarea::placeholder { color: #9a9183; }
+
+    textarea:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---------- main buttons ---------- */
+    form > button {
+      margin-top: 14px;
+      margin-right: 8px;
+      padding: 10px 20px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    form > button[type="submit"] {
+      color: #fff;
+      background: var(--ink);
+      border: 1.5px solid var(--ink);
+    }
+
+    form > button[type="submit"]:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    form > button[type="reset"] {
+      color: var(--soft);
+      background: transparent;
+      border: 1.5px solid var(--line);
+    }
+
+    form > button[type="reset"]:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    button:focus-visible,
+    input[type="file"]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    /* ---------- small screens ---------- */
+    @media (max-width: 520px) {
+      body { padding: 30px 16px 50px; }
+      header h1 { font-size: 2.1rem; }
+      form > button { width: 100%; margin-right: 0; }
+    }
+ 
+}
+ 
+ </style>
+
+
+
+
+
+
+</head>
+<body>
+
+  <header>
+    <h1>K HO? Assistant</h1>
+    <p>
+      This is a chatbot created by team (Symmetric Alliance) at Hacktober fest (8th of october)
+    </p>
+  <img src="symmetric alliance.png" alt="symmetric alliance logo " height="195px", width="200px;"> </img>
+
+
+</header>
+
+  <!-- ========== IMAGE RECOGNITION ========== -->
+  <form class="upload" action="/api/recognize" method="post" enctype="multipart/form-data">
+    <h2>Image identify garnus</h2>
+    <p class="card-sub">Photo upload garnus, AI le yo k ho bhanera batauchha.</p>
+
+    <label for="image">Photo choose garnus</label>
+    <div class="drop">
+      <small>Yo section ma image halnus, wa camera kholnus.</small>
+      <input type="file" id="image" name="image" accept="image/*" capture="environment" required>
+    </div>
+
+    <button type="submit">Identify garne</button>
+    <button type="reset">Clear</button>
+  </form>
+ 
+ 
+
+  <!-- ========== SUGGESTIONS ========== -->
+  <section class="suggest">
+    <p>Suggested questions</p>
+    <form action="/api/chat" method="post">
+      <button type="submit" name="message" value="butwal ko biggest hackathon kun ho nii ai"> Butwal ko biggest hackathon kun ho ni ai ?</button>
+      <button type="submit" name="message" value="Mile k garnu parchha?">Maile k garnu parxaa?</button>
+      <button type="submit" name="message" value="Last date kahile ho?">aajako date k ho nii? </button>
+    </form>
+  </section>
+
+  <!-- ========== TEXT QUESTION ========== -->
+  <form class="ask" action="/api/chat" method="post">
+    <label for="message">Aafno prashna lekhnus</label>
+    <textarea id="message" name="message" rows="3" cols="50" required placeholder="Yaha lekhnus..."></textarea>
+    <button type="submit">Pathaunus</button>
+    <button type="reset">Clear</button>
+  </form>
+
+</body>
+<script>
+import { GoogleGenAI } from "@google/genai";
+
+const ai = new GoogleGenAI();
+
+const response = await ai.models.generateContent({
+  model: "gemma-4-26b-a4b-it",
+  contents: "Roses are red...",
+});
+console.log(response.text);
+
+</script>
+
+</html>
